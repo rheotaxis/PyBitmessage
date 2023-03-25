@@ -12,7 +12,8 @@ Limitations:
 
 import os
 import sys
-import distutils
+import distutils.ccompiler
+from distutils.core import setup, Extension
 from distutils.errors import CompileError
 
 try:
@@ -60,7 +61,7 @@ EXTRAS_REQUIRE_DEPS = {
 
 def detectPrereqs(missing=True):
     available = []
-    print("list of packages: ")
+    print("\n list of packages: ")
     for module in PACKAGES:
         print(module)
         try:
@@ -107,12 +108,12 @@ def testCompiler():
     cmd.finalize_options()
     cmd.force = True
 
-    print("running cmd:")
+    print("\n running cmd:")
 
     try:
         cmd.run()
     except CompileError:
-        print("CompileError")
+        print("\n CompileError")
         return False
     else:
         fullPath = os.path.join(cmd.build_lib, cmd.get_ext_filename("bitmsghash"))
@@ -123,7 +124,7 @@ Try to find compilers to work on MSYS2 and Python 2
 
 """
 
-print("find the compilers")
+print("\n show compilers:")
 distutils.ccompiler.show_compilers()
 
 prereqs = detectPrereqs()
